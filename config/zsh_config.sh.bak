@@ -39,3 +39,50 @@ echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> 
 
 
 source ~/zshrc
+
+
+
+
+---
+源需求文档
+
+
+
+
+shebang
+
+# 在家目录下创建workSpace目录
+mkdir $HOME/workSpace
+
+#!/bin/bash
+
+
+# 检查是否为root用户
+if [ "$EUID" -ne 0 ]; then
+    SUDO='sudo'
+    echo "请提供管理员密码以继续安装:"
+else
+    SUDO=''
+fi
+
+#更新软件源
+apt update
+
+
+
+# 必装软件
+# 检查是否存在然后安装 下面的软件包
+
+git,vim,nnn,python,wget,curl,tree
+
+
+# 配置全局git:用户名为clearsky0601,邮箱为xinyuscl@163.com
+git config --global user.name "clearsky0601"
+git config --global user.email "xinyuscl@163.com"
+
+# 克隆我的配置仓库到workSpace目录下
+git clone https://github.com/clearsky0601/autoScript.git $HOME/workSpace/autoScript
+
+# 配置vimrc
+将autoScript/vimrc 复制到 $HOME 目录下
+
