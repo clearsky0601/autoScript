@@ -10,6 +10,9 @@ else
     SUDO=''
 fi
 
+# 获取脚本所在目录的绝对路径
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
 # 在家目录下创建workSpace目录
 mkdir -p "$HOME/workSpace"
 echo "Created workSpace directory in home folder"
@@ -38,11 +41,11 @@ git config --global user.email "xinyuscl@163.com"
 echo "Configured global Git settings"
 
 # 配置vimrc
-if [ -f "./vimrc" ]; then
-    cp "./vimrc" "$HOME/.vimrc"
-    echo "Copied vimrc configuration file to home directory"
+if [ -f "$SCRIPT_DIR/.vimrc" ]; then
+    cp "$SCRIPT_DIR/.vimrc" "$HOME/.vimrc"
+    echo "Copied .vimrc configuration file to home directory"
 else
-    echo "Warning: vimrc file not found in the repository, please check the repository contents"
+    echo "Warning: .vimrc file not found in the repository, please check the repository contents"
 fi
 
 echo "Initialization configuration completed successfully"
