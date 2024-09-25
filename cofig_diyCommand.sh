@@ -10,19 +10,23 @@ if [ "$EUID" -ne 0 ]; then
 else
     SUDO=''
 fi
+# 将自定义的命令封装成一个数组
+scripts=(gitpush.sh recordCommand.py)
 
+# 将自定义的命令拷贝到 /usr/local/bin/ 目录下并添加可执行权限
+echo "Copying custom scripts to /usr/local/bin/ and adding executable permissions..."
+for script in "${scripts[@]}"; do
+    $SUDO cp "$script" /usr/local/bin/
+    $SUDO chmod +x "/usr/local/bin/$script"
+done
 
-# 将自定义的命令拷贝到 /usr/local/bin/ 目录下
+# 添加自定义别名到.zshrc文件中
+echo "Adding custom aliases to .zshrc file..."
+echo "alias lgc='/usr/local/bin/recordCommand.py'" >> $HOME/.zshrc
+echo "alias gitpush='/usr/local/bin/gitpush.sh'" >> $HOME/.zshrc
 
+# 重新加载.zshrc文件
+echo "Reloading .zshrc file..."
+source $HOME/.zshrc
 
-将autoScript目录下的gitpush.sh,recordCommand.py,[待填充,以后还有,考虑脚本的可拓展性]添加可执行权限并将其移动到/usr/local/bin/目录下(该目录会请求权限)
-
-
-
-# 自定义别名添加到.zshrc文件中
-alias lgc='/path/to/recordCommand.py'
-alias gitpush='/path/to/gitpush.sh'
-
-这里gitpush.sh recordCommand.py 需要替换成实际的路径,也就是/usr/local/bin/目录下的路径
-
-source .zshrc
+echo "Custom command configuration completed successfully!"
