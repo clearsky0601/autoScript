@@ -1,0 +1,41 @@
+shebang
+
+# 更新软件源
+
+
+
+# 安装zsh
+
+
+# 将zsh设置为默认的shell
+
+
+# 下载安装oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+
+
+
+
+# 安装自动补全插件\代码高亮插件
+
+# https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
+
+# 修改zshrc
+    #修改主题
+    # 将ZSH_THEME="robbyrussell"改为ZSH_THEME="ys"
+    # 将ZSH_THEME=""改为ZSH_THEME="af-magic"
+    ZSH_THEME="af-magic"
+    # 将plugins=(git)改为plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+    plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+
+
+
+
+
+
+source ~/zshrc
