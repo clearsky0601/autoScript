@@ -11,6 +11,7 @@ sed -i 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting
 # 追加conda配置和alias到.zshrc
 cat << EOT >> ~/.zshrc
 
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/root/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -27,7 +28,7 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 # 自定义别名
-alias logcmd='/path/to/Command.py'
+alias logcmd='/path/to/recordCommand.py'
 EOT
 
 echo "ZSH 主题、插件配置以及conda配置和别名已追加到.zshrc"
