@@ -25,8 +25,8 @@ echo "Adding custom aliases to .zshrc file..."
 echo "alias lgc='/usr/local/bin/recordCommand.py'" >> $HOME/.zshrc
 echo "alias gitpush='/usr/local/bin/gitpush.sh'" >> $HOME/.zshrc
 
-# 重新加载.zshrc文件
-echo "Reloading .zshrc file..."
-source $HOME/.zshrc
+# 不要尝试在bash中重新加载.zshrc
+echo "Custom aliases have been added to .zshrc"
+echo "Please run 'source ~/.zshrc' in your zsh shell to apply changes"
 
 echo "Custom command configuration completed successfully!"

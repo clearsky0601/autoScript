@@ -3,7 +3,6 @@ import os
 import datetime
 import curses
 import re
-import sys
 
 LOG_FILE = os.path.expanduser("~/useful_commands.log")
 HISTORY_FILE = os.path.expanduser("~/.zsh_history")
@@ -13,13 +12,6 @@ def get_last_update_time():
         return datetime.datetime.fromtimestamp(os.path.getmtime(LOG_FILE))
     return None
 
-def progress_bar(current, total, width=50):
-    percent = float(current) / total
-    filled = int(width * percent)
-    bar = '=' * filled + '-' * (width - filled)
-    percent_display = f"{percent:.1%}"
-    return f"\r[{bar}] {percent_display}"
-
 def get_new_history(last_update):
     if not os.path.exists(HISTORY_FILE):
         print(f"Error: Zsh history file not found at {HISTORY_FILE}")
@@ -28,23 +20,14 @@ def get_new_history(last_update):
     with open(HISTORY_FILE, 'r', encoding='utf-8', errors='ignore') as f:
         history = f.readlines()
 
-    total_lines = len(history)
     commands = []
-    for i, line in enumerate(history):
-        if i % 100 == 0:
-            sys.stdout.write(progress_bar(i, total_lines))
-            sys.stdout.flush()
-
+    for line in history:
         match = re.match(r': (\d+):\d+;(.+)$', line)
         if match:
             timestamp, command = match.groups()
             command_time = datetime.datetime.fromtimestamp(int(timestamp))
             if last_update is None or command_time > last_update:
                 commands.append(command.strip())
-
-    sys.stdout.write(progress_bar(total_lines, total_lines))
-    sys.stdout.write('\n')
-    sys.stdout.flush()
 
     return list(dict.fromkeys(commands))[-1000:]
 
@@ -112,14 +95,10 @@ def main():
     else:
         print("No previous records found.")
 
-    print("Loading command history...")
     new_history = get_new_history(last_update)
     if not new_history:
         print("No new commands since last update.")
         return
-
-    print(f"Loaded {len(new_history)} commands.")
-    input("Press Enter to continue...")
 
     selected_commands = curses.wrapper(select_commands, new_history)
 
