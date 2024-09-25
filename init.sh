@@ -22,7 +22,7 @@ $SUDO apt update
 echo "Updated package lists"
 
 # 必装软件列表
-packages=(vim nnn python3 wget curl tree)
+packages=(vim nnn python3 wget curl tree zsh)
 
 # 检查并安装必装软件
 echo "Checking and installing required packages..."
