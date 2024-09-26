@@ -117,4 +117,37 @@ gitpush
 
 配置Vscode -->
 
-代码自动换行
+
+
+## 配置github ssh
+
+
+
+生成ssh密钥
+```
+ssh-keygen -t ed25519 -C "xinyuscl@163.com"
+```
+
+启动 ssh-agent：
+```
+eval "$(ssh-agent -s)"
+```
+
+添加 SSH 密钥到 ssh-agent：
+```
+ssh-add ~/.ssh/id_ed25519
+```
+
+
+查看 SSH 公钥：
+```
+cat ~/.ssh/id_ed25519.pub
+```
+
+登录到 GitHub 网站，进入 Settings -> SSH and GPG keys -> New SSH key，粘贴公钥内容并保存。
+
+测试 SSH 连接：
+```
+ssh -T git@github.com
+```
+
