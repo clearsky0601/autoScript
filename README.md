@@ -27,6 +27,20 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 ```
 
 
+配置zsh和自动化脚本
+
+```
+cd ~/workSpace/autoScript && ./zsh_config.sh && ./config_diyCommand.sh
+``` 
+
+
+```
+source ~/.zshrc
+```
+
+
+
+
 ```
 cd ~/workSpace/autoScript
 bash config/oh_my_zsh_config.sh
