@@ -1,5 +1,5 @@
 
-```
+<!-- ```
 mkdir -p ~/workSpace/
 cd ~/workSpace/
 git clone https://github.com/clearsky0601/autoScript.git && bash autoScript/init.sh
@@ -12,9 +12,15 @@ git clone https://github.com/clearsky0601/autoScript.git && bash autoScript/init
 ```
 cd ~/workSpace/autoScript
 bash init.sh
+``` -->
+
+## 安装必要的软件包:
+
+``` 
+mkdir -p ~/workSpace/ && cd ~/workSpace/ && git clone https://github.com/clearsky0601/autoScript.git && bash autoScript/init.sh
 ```
 
-安装oh-my-zsh: [官方网址](https://ohmyz.sh)
+## 安装oh-my-zsh: [官方网址](https://ohmyz.sh)
 
 ```
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -35,7 +41,16 @@ bash config/zsh_config.sh
 
 
 # 自动化脚本的配置
+```
+./cofig_diyCommand.sh
+```
 
+
+
+
+
+
+<!-- 
 ## recordCommand.py --用于记录命令
 
 ```
@@ -100,6 +115,6 @@ gitpush
 
 
 
-配置Vscode
+配置Vscode -->
 
 代码自动换行
