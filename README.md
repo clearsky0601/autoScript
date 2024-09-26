@@ -1,16 +1,35 @@
 
+```
+mkdir -p ~/workSpace/
+cd ~/workSpace/
+git clone https://github.com/clearsky0601/autoScript.git && bash autoScript/init.sh
 
+```
+
+
+安装软件包等初始配置
+
+```
+cd ~/workSpace/autoScript
+bash init.sh
+```
+
+安装oh-my-zsh: [官方网址](https://ohmyz.sh)
+
+```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
 
 
 ```
-cd 01.autoPush2Remote
-chmod +x ./gitpush.sh
+cd ~/workSpace/autoScript
+bash config/oh_my_zsh_config.sh
+```
 
-export PATH="$PATH:$HOME/workSpace/repositories/autoScript/01.autoPush2Remote"
-alias gitpush="gitpush.sh"
-
-
-
+配置zsh
+```
+cd ~/workSpace/autoScript
+bash config/zsh_config.sh
 ```
 
 
