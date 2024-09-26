@@ -1,4 +1,5 @@
 #!/bin/bash
+chsh -s $(which zsh)
 
 # 安装自动补全插件和代码高亮插件
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
