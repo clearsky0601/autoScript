@@ -47,6 +47,12 @@ bash config/zsh_config.sh
 
 
 
+同步命令文件
+
+```
+rsync -avz ~/.useful_commands.log ~/workSpace/note/useful_commands.log
+```
+
 
 
 

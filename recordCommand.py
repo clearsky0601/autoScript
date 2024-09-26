@@ -4,7 +4,7 @@ import datetime
 import curses
 import re
 
-LOG_FILE = os.path.expanduser("~/useful_commands.log")
+LOG_FILE = os.path.expanduser("~/.useful_commands.log")
 HISTORY_FILE = os.path.expanduser("~/.zsh_history")
 
 def get_last_update_time():
