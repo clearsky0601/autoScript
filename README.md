@@ -1,12 +1,14 @@
 
 ### 文件目录
 .
+```
 ├── README.md
 ├── config_diyCommand.sh # 配置自定义命令
 ├── gitpush.sh # 用于自动推送代码到远程仓库
 ├── init.sh # 用于初始化服务器
 ├── recordCommand.py # 记录zsh中输入过的命令,便于今后的学习
 └── zsh_config.sh # 配置zsh
+```
 
 
 
@@ -20,7 +22,7 @@
 ```
 cd ~/workSpace/autoScript
 bash init.sh
-``` -->
+```
 
 ## 安装必要的软件包:
 
