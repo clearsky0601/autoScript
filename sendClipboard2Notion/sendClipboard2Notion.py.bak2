@@ -9,18 +9,21 @@ import re
 notion_token = 'secret_8j9tcjr9gGF5pXCW9iDRaH0Q2QE7NLCNx4d6LfZaaBa'
 notion_database_id = '10dcef0dda3e806c97bbca362447a5fb'
 
+
 def parse_markdown(content):
-    lines = content.split('\n')
     blocks = []
-    stack = [(0, blocks)]
+    lines = content.split('\n')
     code_block = False
     code_language = ''
     code_content = []
+    list_stack = []
+    current_indent = 0
 
     def get_notion_language(lang):
         lang_map = {
             'plaintext': 'plain text',
             'text': 'plain text',
+            # 添加更多的映射关系
         }
         return lang_map.get(lang.lower(), lang.lower())
 
@@ -56,94 +59,104 @@ def parse_markdown(content):
     def get_indent_level(line):
         return len(line) - len(line.lstrip())
 
-    def add_block(block, indent):
-        while stack and indent <= stack[-1][0]:
-            stack.pop()
-        
-        if not stack:
-            blocks.append(block)
-            if block['type'] in ['bulleted_list_item', 'numbered_list_item', 'to_do']:
-                stack.append((indent, [block]))
-        else:
-            parent = stack[-1][1]
-            parent.append(block)
-            if block['type'] in ['bulleted_list_item', 'numbered_list_item', 'to_do']:
-                if 'children' not in block:
-                    block['children'] = []
-                stack.append((indent, block['children']))
+    def create_list_item(content, list_type):
+        return {
+            "type": list_type,
+            list_type: {
+                "rich_text": create_rich_text(content)
+            }
+        }
 
-    for line in lines:
+    i = 0
+    while i < len(lines):
+        line = lines[i]
         stripped_line = line.strip()
         indent = get_indent_level(line)
-
-        if code_block:
-            if stripped_line.startswith('```'):
-                add_block({
-                    "type": "code",
-                    "code": {
-                        "language": get_notion_language(code_language),
-                        "rich_text": [{"type": "text", "text": {"content": '\n'.join(code_content)}}]
-                    }
-                }, indent)
-                code_block = False
-            else:
-                code_content.append(line)
-            continue
-
-        if stripped_line.startswith('```'):
+        
+        # 处理代码块
+        if stripped_line.startswith('```') and not code_block:
             code_block = True
             code_language = stripped_line[3:].strip() or 'plain text'
             code_content = []
+            code_indent = indent
+            i += 1
             continue
-
+        elif stripped_line.startswith('```') and code_block:
+            blocks.append({
+                "type": "code",
+                "code": {
+                    "language": get_notion_language(code_language),
+                    "rich_text": [{"type": "text", "text": {"content": '\n'.join(code_content)}}]
+                }
+            })
+            code_block = False
+            i += 1
+            continue
+        elif code_block:
+            code_content.append(line[code_indent:])  # 保留相对缩进
+            i += 1
+            continue
+        
+        # 处理列表
         list_match = re.match(r'^(\s*)([*-]|\d+\.)\s', line)
         if list_match:
+            indent = len(list_match.group(1))
             list_type = "bulleted_list_item" if list_match.group(2) in ['*', '-'] else "numbered_list_item"
             content = line[list_match.end():].strip()
-            add_block({
-                "type": list_type,
-                list_type: {
-                    "rich_text": create_rich_text(content)
-                }
-            }, indent)
+
+            while list_stack and indent <= list_stack[-1][0]:
+                list_stack.pop()
+
+            if not list_stack or indent > list_stack[-1][0]:
+                list_stack.append((indent, list_type))
+
+            blocks.append(create_list_item(content, list_type))
+            i += 1
+            continue
+
+        # 处理其他元素
         elif line.startswith('#'):
             heading_level = len(line.split()[0])
             heading_text = line.lstrip('#').strip()
-            add_block({
+            blocks.append({
                 "type": f"heading_{heading_level}",
                 f"heading_{heading_level}": {
                     "rich_text": create_rich_text(heading_text)
                 }
-            }, indent)
+            })
         elif line.startswith('> '):
-            add_block({
+            blocks.append({
                 "type": "quote",
                 "quote": {
                     "rich_text": create_rich_text(line[2:])
                 }
-            }, indent)
+            })
         elif line.startswith('- [ ] ') or line.startswith('- [x] '):
             checked = line.startswith('- [x] ')
-            add_block({
+            blocks.append({
                 "type": "to_do",
                 "to_do": {
                     "rich_text": create_rich_text(line[6:]),
                     "checked": checked
                 }
-            }, indent)
+            })
         elif line.startswith('---'):
-            add_block({"type": "divider", "divider": {}}, indent)
+            blocks.append({"type": "divider", "divider": {}})
         elif stripped_line == '':
-            add_block({"type": "paragraph", "paragraph": {"rich_text": []}}, indent)
+            blocks.append({"type": "paragraph", "paragraph": {"rich_text": []}})
         else:
-            add_block({
+            blocks.append({
                 "type": "paragraph",
                 "paragraph": {
                     "rich_text": create_rich_text(line)
                 }
-            }, indent)
+            })
+        i += 1
 
     return blocks
+
+
+
 
 def handle_special_elements(content):
     # 处理表格

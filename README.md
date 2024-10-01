@@ -92,3 +92,23 @@ ssh -T git@github.com
 
 
 log: sendClipboad2cNotion 修改了关于列表的一点点,之前的加了注释.
+
+
+
+
+
+
+
+
+
+TO-DO
+
+
+
+- [ ] sendClipboard2Notion支持子块的创建
+- [ ] 完善的.vimrc文件
+  - [ ] 软件剪贴板的安装
+  - [ ] clipboard
+- [ ] https://www.cnblogs.com/gmpy/p/11177719.html
+- [ ] https://taoshu.in/vim/vim-copy-over-ssh.html
+- [ ] https://blog.csdn.net/wtandyn/article/details/132560034
