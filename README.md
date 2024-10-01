@@ -87,3 +87,8 @@ ssh -T git@github.com
 └── zsh_config.sh # 配置zsh
 ```
 
+
+
+
+
+log: sendClipboad2cNotion 修改了关于列表的一点点,之前的加了注释.
