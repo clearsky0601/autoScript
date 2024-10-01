@@ -467,11 +467,18 @@ def parse_markdown(content):
                 }
             })
             i += 1
-        elif line.startswith('- ') or line.startswith('* '):
+        # elif line.startswith('- ') or line.startswith('* '):
+        #     if list_type != "bulleted_list_item":
+        #         flush_list()
+        #         list_type = "bulleted_list_item"
+        #     list_items.append(line[2:])
+        #     i += 1
+        elif re.match(r'^[ \t]*[-*] ', line):  # 修改这里的正则表达式以匹配前面有空格的无序列表
             if list_type != "bulleted_list_item":
                 flush_list()
                 list_type = "bulleted_list_item"
-            list_items.append(line[2:])
+            # 移除列表项前的空格和标记
+            list_items.append(re.sub(r'^[ \t]*[-*] ', '', line))
             i += 1
         elif re.match(r'^\d+\. ', line):
             if list_type != "numbered_list_item":
