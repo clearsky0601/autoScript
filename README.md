@@ -109,6 +109,8 @@ TO-DO
 - [ ] 完善的.vimrc文件
   - [ ] 软件剪贴板的安装
   - [ ] clipboard
+
 - [ ] https://www.cnblogs.com/gmpy/p/11177719.html
 - [ ] https://taoshu.in/vim/vim-copy-over-ssh.html
 - [ ] https://blog.csdn.net/wtandyn/article/details/132560034
+- [ ] nnn 插件的用法
