@@ -18,6 +18,12 @@ mkdir -p ~/workSpace/ && cd ~/workSpace/ && git clone https://github.com/clearsk
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
+亦或者
+```
+sh -c "$(curl -fsSL https://tty.moe/omz-cn)"
+
+```
+
 **3️⃣ 配置zsh和自动化脚本**
 
 ```
