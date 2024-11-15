@@ -9,7 +9,7 @@
 **1️⃣ 安装必要的软件包:**
 
 ```
-mkdir -p ~/workSpace/ && cd ~/workSpace/ && git clone https://github.com/clearsky0601/autoScript.git && bash autoScript/init.sh
+mkdir -p ~/workSpace/ && cd ~/workSpace/ && git clone https://gitclone.com/github.com/clearsky0601/autoScript.git && bash autoScript/init.sh
 ```
 
 **2️⃣ 安装oh-my-zsh: [官方网址](https://ohmyz.sh)**
